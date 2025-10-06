@@ -15,15 +15,15 @@ public class RedisConfig {
   @Bean
   public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
     RedisCacheConfiguration redisCacheConfiguration =
-            RedisCacheConfiguration.defaultCacheConfig()
-                    .entryTtl(Duration.ofMinutes(10))
-                    .disableCachingNullValues()
-                    .serializeValuesWith(
-                            RedisSerializationContext.SerializationPair.fromSerializer(
-                                    new GenericJackson2JsonRedisSerializer()));
+        RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(10))
+            .disableCachingNullValues()
+            .serializeValuesWith(
+                RedisSerializationContext.SerializationPair.fromSerializer(
+                    new GenericJackson2JsonRedisSerializer()));
 
     return RedisCacheManager.builder(redisConnectionFactory)
-            .cacheDefaults(redisCacheConfiguration)
-            .build();
+        .cacheDefaults(redisCacheConfiguration)
+        .build();
   }
 }
