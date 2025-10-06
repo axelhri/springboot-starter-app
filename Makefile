@@ -16,6 +16,10 @@ prod: # Initialize production container
 ci: # Install project dependencies
 	mvn clean install
 
+sonar-init: # Initialize SonarQube project
+	chmod +x ./sonarqube-init.sh
+	./sonarqube-init.sh
+
 sonar: # SonarQube analysis
 	mvn clean verify sonar:sonar \
         -Dsonar.projectKey=$(SONAR_PROJECT_KEY) \

@@ -43,14 +43,16 @@ TOKEN=$(curl -s -u admin:$NEW_ADMIN_PASS -X POST "$SONARQUBE_URL/api/user_tokens
 if [ "$TOKEN" != "null" ] && [ -n "$TOKEN" ]; then
   echo "✅ Token généré pour le projet '$PROJECT_NAME'"
 
-  # S'assurer qu'il y a un retour à la ligne à la fin du fichier
-  [ -s "$ENV_FILE" ] && tail -c1 "$ENV_FILE" | grep -q $'\n' || echo "" >> "$ENV_FILE"
+  # Ensure newline at end of .env file
+  if [ -s "$ENV_FILE" ] && [ "$(tail -c1 "$ENV_FILE")" != "" ]; then
+    echo "" >> "$ENV_FILE"
+  fi
 
-  # Nettoyer anciennes valeurs si elles existent
+  # Clean old values
   sed -i "/^SONAR_PROJECT_KEY=/d" "$ENV_FILE"
   sed -i "/^SONAR_TOKEN=/d" "$ENV_FILE"
 
-  # Ajouter en bas du .env
+  # Append to .env
   {
     echo "SONAR_PROJECT_KEY=$PROJECT_KEY"
     echo "SONAR_TOKEN=$TOKEN"

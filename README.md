@@ -19,8 +19,7 @@ make run
 ## Create project
 
 ```bash
-chmod +x ./sonarqube-init.sh
-./sonarqube-init.sh 
+make sonar-init
 ```
 
 **login :**

@@ -17,6 +17,16 @@ services:
       retries: 5
     restart: unless-stopped
 
+  redis:
+    image: redis:7.4.2
+    container_name: redis_dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_dev:/data
+    restart: unless-stopped
+
+
   sonarqube:
     image: sonarqube:community
     container_name: sonarqube
@@ -50,3 +60,4 @@ volumes:
   sonarqube_data:
   sonarqube_logs:
   sonarqube_extensions:
+  redis_data_dev:
